@@ -53,6 +53,8 @@ public class TeamServiceImpl implements TeamService {
 //        teaminfo信息完整
 // 1、检查teamInfo信息是否完整，2、创建teamInfo相关的表，3，更新相关数据并回传最终结果；
 
+//        set teamNumber
+
 //        address part
         AddressInfo teamAddressInfo = teamInfo.getAddressInfo();
         mongoTemplate.save(addressInfo);
@@ -64,6 +66,7 @@ public class TeamServiceImpl implements TeamService {
         playerInfo.setComeFrom("T");
         playerInfo.setState("WAITTING");
 //        playersInfo;
+        teamPlayerInfo.setPlayerArrayList(new ArrayList<>());
         teamPlayerInfo.getPlayerArrayList().add(playerInfo);
         teamPlayerInfo.setTeamId(teamInfo.getId());
         if (userOpenInfo.getGender() != "girl")
@@ -86,20 +89,7 @@ public class TeamServiceImpl implements TeamService {
         teamFilterInfo teamFilterInfo = teamInfo.getTeamFilterInfo();
         mongoTemplate.save(teamFilterInfo);
 
-
-        User creater = userMapper.selectByPrimaryKey(userId);
-        ArrayList<Player> playersList = new ArrayList<>();
-        playersList.add(JSONObject.parseObject(JSONObject.toJSONString(creater), Player.class));
-//        playerInfo.setPlayers(playersList);
-//
-//        mongoTemplate.insert(addressInfo);
-//        mongoTemplate.insert(filterInfo);
-//        mongoTemplate.insert(playerInfo);
-//
-////        mongoTemplate.insert(teamInfo);
-////        teamInfo.setId(999);
-////        teamInfo = mongoTemplate.findById(114,TeamInfo.class);
-////        if()
+        mongoTemplate.insert(teamInfo);
 ////        2、数据库新增team信息；
 //        teamInfo.setAddressId(addressInfo.getId());
 //        teamInfo.setFilterId(filterInfo.getId());

@@ -225,7 +225,7 @@
 		<!--merge-->
 		<dependency>
 			<groupId>com.renchaigao.zujuba</groupId>
-			<artifactId>merge</artifactId>
+			<artifactId>mergeJAR</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- spring data mongodb -->
