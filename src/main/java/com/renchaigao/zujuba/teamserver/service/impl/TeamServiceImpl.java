@@ -1,5 +1,6 @@
 package com.renchaigao.zujuba.teamserver.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.dao.Player;
 import com.renchaigao.zujuba.dao.User;
@@ -10,16 +11,25 @@ import com.renchaigao.zujuba.domain.response.RespCode;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.PlayerInfo;
+import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.team.*;
+import com.renchaigao.zujuba.mongoDB.info.team.teamGameInfo;
+import com.renchaigao.zujuba.mongoDB.info.team.teamPlayerInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.renchaigao.zujuba.teamserver.service.TeamService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import store.DistanceFunc;
+import sun.misc.ObjectInputFilter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -108,24 +118,29 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public ResponseEntity getTeamsByUserId(Integer userId, String getWay) {
-//        List<Team> teams = teamMapper.selectAllTeam();
-//        ArrayList<TeamInfo> teamInfos = new ArrayList<>();
-//        TeamInfo teamInfo ;
-//        teamInfo = new TeamInfo();
-//        for(Team i : teams){
-//            teamInfo = JSONObject.parseObject(JSONObject.toJSONString(i),TeamInfo.class);
-//            teamInfo.setFilterInfo(mongoTemplate.findById(i.getFilterId(),FilterInfo.class));
-//            teamInfo.setAddressInfo(mongoTemplate.findById(i.getAddressId(),AddressInfo.class));
-//            teamInfo.setPlayerInfo(mongoTemplate.findById(i.getPlayerinfoId(),PlayerInfo.class));
-//            teamInfos.add(teamInfo);
-//        }
-//        String teamListStr = JSONArray.toJSONString(teamInfos);
-////        Criteria criteria = Criteria.where("id").ne(userId);
-////        List<TeamInfo> teamInfoList = mongoTemplate.find(Query.query(criteria), TeamInfo.class);
-////        return null;
-//        return new ResponseEntity(RespCode.SUCCESS, teamListStr);
-        return null;
+    public ResponseEntity getTeamsByUserId(String userId, String getWay) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        AddressInfo userAddress = mongoTemplate.findById(user.getMyAddressId(), AddressInfo.class);
+        String userCityCode = userAddress.getCitycode();
+        Double userX = userAddress.getLatitude(), userY = userAddress.getLongitude();
+        List<TeamInfo> teamInfos = mongoTemplate.find(
+                Query.query(Criteria.where("addressInfo.citycode").is(userCityCode)), TeamInfo.class);
+        for (int i = 0; i < teamInfos.size(); i++) {
+            teamInfos.get(i).getAddressInfo().setDistance(DistanceFunc.getDistance(userX, userY,
+                    teamInfos.get(i).getAddressInfo().getLatitude(),
+                    teamInfos.get(i).getAddressInfo().getLongitude())
+            );
+        }
+        Collections.sort(teamInfos, new Comparator<TeamInfo>() {
+            @Override
+            public int compare(TeamInfo o1, TeamInfo o2) {
+//                    从小到大
+                return (int) (o1.getAddressInfo().getDistance() - o2.getAddressInfo().getDistance());
+//                    从大到小
+//                return (int)(o2.getDistance() - o1.getDistance());
+            }
+        });        return new ResponseEntity(RespCode.SUCCESS, teamInfos);
+
     }
 
     @Override

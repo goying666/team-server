@@ -20,7 +20,7 @@ public class TeamController {
 
     @GetMapping(value = "/{userid}", consumes = "application/json")
     @ResponseBody
-    public ResponseEntity getTeam(@PathVariable("userid") Integer userid) {
+    public ResponseEntity getTeam(@PathVariable("userid") String  userid) {
         return teamServiceImpl.getTeamsByUserId(userid,null);
     }
 
