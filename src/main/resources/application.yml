@@ -49,7 +49,7 @@ spring:
         zookeeper:
             connect: 47.106.149.105:2181
         consumer:
-            group-id: defaultGroup
+            group-id: teamGroup
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
             value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
         producer:

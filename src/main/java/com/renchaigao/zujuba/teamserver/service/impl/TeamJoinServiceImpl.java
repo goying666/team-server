@@ -1,6 +1,7 @@
 package com.renchaigao.zujuba.teamserver.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.PropertiesConfig.MongoDBCollectionsName;
 import com.renchaigao.zujuba.dao.User;
 import com.renchaigao.zujuba.dao.UserOpenInfo;
 import com.renchaigao.zujuba.dao.mapper.UserMapper;
@@ -11,6 +12,7 @@ import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.PlayerInfo;
 import com.renchaigao.zujuba.mongoDB.info.team.*;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
+import com.renchaigao.zujuba.mongoDB.info.user.UserTeams;
 import com.renchaigao.zujuba.teamserver.service.TeamJoinService;
 import com.renchaigao.zujuba.teamserver.service.TeamService;
 import com.renchaigao.zujuba.teamserver.uti.TeamDateFunc;
@@ -88,7 +90,7 @@ public class TeamJoinServiceImpl implements TeamJoinService {
 //        更新用户的team信息
         mongoTemplate.updateFirst(Query.query(Criteria.where("_id").is(userId)),
                 new Update().push("doingTeamsList", teamId).push("allTeamsList", teamId),
-                UserTeamInfo.class, "myTeamsInfo");
+                UserTeams.class, MongoDBCollectionsName.MONGO_DB_COLLECIONS_NAME_USER_TEAMS);
 
         teamInfo.setTeamPlayerInfo(mongoTemplate.findOne(Query.query(Criteria.where("teamId").is(teamId)),
                 TeamPlayerInfo.class, "teamPlayerInfo"));
