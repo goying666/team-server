@@ -31,12 +31,9 @@ spring:
             max-request-size: 30MB
     data:
       mongodb:
+        database: zjb
         host: 47.106.149.105
         port: 27017
-#        uri: mongodb://47.106.149.105:27017
-#        username: admin
-#        password: 123
-        database: zjb
     redis:
         host: 47.106.149.105
         port: 6379

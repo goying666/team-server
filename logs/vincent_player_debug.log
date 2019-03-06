@@ -1,9 +1,7 @@
-2019-02-24 09:32:39  [ http-nio-7802-exec-1:35045372 ] - [ DEBUG ]  {conn-10002, pstmt-20001} enter cache
-2019-02-24 09:46:35  [ http-nio-7802-exec-1:0 ] - [ INFO ]  {dataSource-1} inited
-2019-02-24 09:46:35  [ http-nio-7802-exec-1:37 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
-2019-02-24 09:49:17  [ http-nio-7802-exec-2:0 ] - [ INFO ]  {dataSource-1} inited
-2019-02-24 09:49:17  [ http-nio-7802-exec-2:42 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
-2019-02-24 09:52:27  [ http-nio-7802-exec-1:0 ] - [ INFO ]  {dataSource-1} inited
-2019-02-24 09:52:27  [ http-nio-7802-exec-1:43 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
-2019-02-24 13:44:54  [ http-nio-7802-exec-2:0 ] - [ INFO ]  {dataSource-1} inited
-2019-02-24 13:44:54  [ http-nio-7802-exec-2:65 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
+2019-02-28 10:21:07  [ http-nio-7802-exec-8:45409943 ] - [ DEBUG ]  {conn-10002, pstmt-20001} enter cache
+2019-02-28 13:07:11  [ http-nio-7802-exec-4:0 ] - [ INFO ]  {dataSource-1} inited
+2019-02-28 13:07:11  [ http-nio-7802-exec-4:39 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
+2019-02-28 13:14:32  [ http-nio-7802-exec-2:0 ] - [ INFO ]  {dataSource-1} inited
+2019-02-28 13:14:32  [ http-nio-7802-exec-2:39 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache
+2019-02-28 13:25:57  [ http-nio-7802-exec-1:0 ] - [ INFO ]  {dataSource-1} inited
+2019-02-28 13:25:57  [ http-nio-7802-exec-1:39 ] - [ DEBUG ]  {conn-10001, pstmt-20000} enter cache

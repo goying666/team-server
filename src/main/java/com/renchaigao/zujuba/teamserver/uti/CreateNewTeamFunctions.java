@@ -74,6 +74,7 @@ public class CreateNewTeamFunctions {
 
         teamInfo.setStartAllTime(TeamDateFunc.teamTimeFunc(teamInfo.getStartDate(), teamInfo.getStartTime()));
 
+//        设置team编号：按照同城市0~999999来
 
     }
 
